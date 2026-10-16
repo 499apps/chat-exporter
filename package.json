@@ -12,10 +12,12 @@
                     "typecheck":  "tsc --noEmit",
                     "lint":  "eslint .",
                     "test":  "vitest run",
-                    "check":  "npm run typecheck \u0026\u0026 npm run lint \u0026\u0026 npm test"
+                    "check":  "npm run typecheck \u0026\u0026 npm run lint \u0026\u0026 npm test",
+                    "icons":  "node scripts/render-icons.mjs"
                 },
     "devDependencies":  {
                             "@eslint/js":  "^9.17.0",
+                            "@resvg/resvg-js":  "^2.6.2",
                             "@types/node":  "^22.20.5",
                             "eslint":  "^9.17.0",
                             "jsdom":  "^25.0.1",

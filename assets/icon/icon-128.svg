@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6366F1"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="120" height="120" rx="28" fill="url(#bg)"/>
+  <rect x="4" y="4" width="120" height="60" rx="28" fill="url(#shine)"/>
+  <!-- chat bubble with tail -->
+  <path d="M36 28h56a12 12 0 0 1 12 12v36a12 12 0 0 1-12 12H60L42 104V88h-6a12 12 0 0 1-12-12V40a12 12 0 0 1 12-12z" fill="#FFFFFF"/>
+  <!-- down arrow (save) -->
+  <path d="M64 40v28M52 58l12 12 12-12" fill="none" stroke="#6D28D9" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
