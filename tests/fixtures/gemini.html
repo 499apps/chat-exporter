@@ -1,0 +1,12 @@
+<!doctype html><html><head><title>Gemini</title></head><body>
+<!-- Synthetic fixture modeled on Gemini's custom-element structure. No real user data. -->
+<chat-window><div class="conversation-container">
+  <user-query><div class="query-content"><div class="query-text"><p class="query-text-line">What is 2 + 2?</p><p class="query-text-line">Explain briefly.</p></div></div></user-query>
+  <model-response><div class="response-container"><message-content class="model-response-text"><div class="markdown markdown-main-panel">
+    <h3>Answer</h3><p>It is <b>4</b>.</p>
+    <table><tr><th>a</th><th>b</th><th>sum</th></tr><tr><td>2</td><td>2</td><td>4</td></tr></table>
+  </div></message-content></div></model-response>
+</div><div class="conversation-container">
+  <user-query><div class="query-content"><div class="query-text"><p class="query-text-line">Show it in SQL.</p></div></div></user-query>
+  <model-response><message-content><div class="markdown"><pre><code class="language-sql">SELECT 2 + 2 AS total;</code></pre></div></message-content></model-response>
+</div></chat-window></body></html>
