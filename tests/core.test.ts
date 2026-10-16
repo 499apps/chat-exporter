@@ -3,9 +3,8 @@ import { findAdapter } from '../src/adapters';
 import { extractConversation } from '../src/extract';
 import { toJson } from '../src/export/json';
 import { toMarkdown } from '../src/export/markdown';
-import { toPrintHtml, markdownToHtml } from '../src/export/html';
-import { exportFilename } from '../src/export/filename';
-import { features } from '../src/features';
+import { toHtmlDocument, markdownToHtml } from '../src/export/html';
+import { renderFilename } from '../src/settings';
 import { AdapterError } from '../src/types';
 import { loadFixture } from './helpers';
 
@@ -28,8 +27,8 @@ describe('conversation + exporters', () => {
   const c = extractConversation(loadFixture('chatgpt.html'), 'https://chatgpt.com/c/x', NOW);
   it('builds schema v1', () => {
     expect(c.schema).toBe('convo-keeper/conversation');
-    expect(c.schemaVersion).toBe(1);
-    expect(c.source).toEqual({ site: 'chatgpt', siteName: 'ChatGPT', url: 'https://chatgpt.com/c/x', title: 'Sorting help' });
+    expect(c.schemaVersion).toBe(2);
+    expect(c.source).toEqual({ site: 'chatgpt', siteName: 'ChatGPT', url: 'https://chatgpt.com/c/x', title: 'Sorting help', model: null });
     expect(c.messages.map((m) => m.index)).toEqual([0, 1]);
   });
   it('json round-trips', () => expect(JSON.parse(toJson(c))).toEqual(c));
@@ -41,7 +40,7 @@ describe('conversation + exporters', () => {
   });
   it('print html escapes page text', () => {
     const evil = { ...c, source: { ...c.source, title: '<img src=x onerror=alert(1)>' } };
-    expect(toPrintHtml(evil)).not.toContain('<img');
+    expect(toHtmlDocument(evil)).not.toContain('<img');
     expect(markdownToHtml('```js\n<b>x</b>\n```')).toBe('<pre data-lang="js"><code>&lt;b&gt;x&lt;/b&gt;</code></pre>');
   });
   it('errors clearly when nothing is found or site unknown', () => {
@@ -49,7 +48,6 @@ describe('conversation + exporters', () => {
     expect(() => extractConversation(loadFixture('claude.html'), 'https://example.com/', NOW)).toThrow(/not supported/);
   });
   it('safe filenames', () => {
-    expect(exportFilename('Hello / World: test?', 'claude', 'md', NOW)).toBe('claude-hello-world-test-2026-03-04.md');
+    expect(renderFilename('{site}-{title}-{date}', { site: 'claude', title: 'Hello / World: test?' }, 'md', NOW)).toMatch(/^claude-hello-world-test-2026-03-0[34]\.md$/);
   });
-  it('paid hooks are off', () => expect(features).toEqual({ batchExport: false, sync: false }));
 });

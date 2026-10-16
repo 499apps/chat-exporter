@@ -47,7 +47,7 @@ export async function collectAll(doc: Document, adapter: SiteAdapter, opts: Coll
   const take = () => mergeTurns(seen, order, adapter.extract(doc));
   take();
 
-  const first = doc.querySelector('[data-message-author-role], [data-testid="user-message"], [data-test-render-count], user-query, model-response, [id^="response-"], .message-bubble');
+  const first = doc.querySelector("[data-message-author-role], [data-testid=\"user-message\"], [data-test-render-count], [data-is-streaming], .font-claude-response, user-query, model-response, [id^=\"response-\"], .message-bubble");
   const box = scrollable(first);
   if (!box) return order.map((k) => seen.get(k)!);
 

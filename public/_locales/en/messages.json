@@ -1,0 +1,190 @@
+{
+  "extName": {
+    "message": "Convo Keeper",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Save ChatGPT, Claude, Gemini and Grok chats as Markdown, PDF, HTML, JSON or text. Free, private, on-device.",
+    "description": "Store/manifest description"
+  },
+  "actionTitle": {
+    "message": "Export this conversation",
+    "description": "Toolbar button tooltip"
+  },
+  "cmdOpen": {
+    "message": "Open Convo Keeper",
+    "description": "Keyboard shortcut description"
+  },
+  "settings": {
+    "message": "Settings"
+  },
+  "detected": {
+    "message": "$1 conversation detected",
+    "description": "Site card; $1 = site name"
+  },
+  "ready": {
+    "message": "Ready to export"
+  },
+  "unsupportedTitle": {
+    "message": "Nothing to export here"
+  },
+  "unsupportedBody": {
+    "message": "Open a conversation on ChatGPT, Claude, Gemini or Grok, then click Convo Keeper again."
+  },
+  "fmtMarkdown": {
+    "message": "Markdown"
+  },
+  "fmtPdf": {
+    "message": "PDF"
+  },
+  "fmtHtml": {
+    "message": "HTML"
+  },
+  "fmtCopy": {
+    "message": "Copy"
+  },
+  "fmtJson": {
+    "message": "JSON"
+  },
+  "fmtText": {
+    "message": "Text"
+  },
+  "hintMarkdown": {
+    "message": "Download .md"
+  },
+  "hintPdf": {
+    "message": "Print or save"
+  },
+  "hintHtml": {
+    "message": "Styled web page"
+  },
+  "hintCopy": {
+    "message": "Markdown to clipboard"
+  },
+  "hintJson": {
+    "message": "Structured data"
+  },
+  "hintText": {
+    "message": "Plain .txt"
+  },
+  "chooseMessages": {
+    "message": "Choose messages"
+  },
+  "selectAll": {
+    "message": "All"
+  },
+  "selectNone": {
+    "message": "None"
+  },
+  "selectedCount": {
+    "message": "$1 of $2 selected"
+  },
+  "reading": {
+    "message": "Reading the conversation…"
+  },
+  "readingHint": {
+    "message": "Scrolling through the chat to load every message."
+  },
+  "exportedN": {
+    "message": "Exported $1 messages"
+  },
+  "copiedN": {
+    "message": "Copied $1 messages to the clipboard"
+  },
+  "pdfOpened": {
+    "message": "Print view opened. Choose “Save as PDF”."
+  },
+  "noneSelected": {
+    "message": "Select at least one message."
+  },
+  "errorTitle": {
+    "message": "Couldn't export"
+  },
+  "errOutdatedHelp": {
+    "message": "Try reloading the page. If it keeps happening, the site changed and Convo Keeper needs an update."
+  },
+  "errEmptyHelp": {
+    "message": "Open an existing conversation (not the new-chat page)."
+  },
+  "errGenericHelp": {
+    "message": "Reload the page and try again."
+  },
+  "errNoAccess": {
+    "message": "Chrome didn't allow access to this tab. Reload the page and try again."
+  },
+  "warningTitle": {
+    "message": "Exported, but check it"
+  },
+  "privacyNote": {
+    "message": "Runs only on your device"
+  },
+  "privacy": {
+    "message": "Privacy"
+  },
+  "shortcutsHint": {
+    "message": "Shortcuts: M, P, H, C, J, T"
+  },
+  "you": {
+    "message": "You"
+  },
+  "optTitle": {
+    "message": "Convo Keeper settings"
+  },
+  "optFilename": {
+    "message": "File name"
+  },
+  "optFilenameHelp": {
+    "message": "Tokens: {site}, {title}, {date}, {time}, {model}"
+  },
+  "optPreview": {
+    "message": "Example: $1"
+  },
+  "optContent": {
+    "message": "Content"
+  },
+  "optTimestamps": {
+    "message": "Include message timestamps (when the site shows them)"
+  },
+  "optMetadata": {
+    "message": "Include a header with site, model, date and link"
+  },
+  "optThinking": {
+    "message": "Include thinking / reasoning blocks"
+  },
+  "optTheme": {
+    "message": "PDF and HTML theme"
+  },
+  "themeIndigo": {
+    "message": "Indigo"
+  },
+  "themeClassic": {
+    "message": "Classic"
+  },
+  "themeMinimal": {
+    "message": "Minimal"
+  },
+  "themeDark": {
+    "message": "Dark"
+  },
+  "optShortcut": {
+    "message": "Keyboard shortcut"
+  },
+  "optShortcutHelp": {
+    "message": "Open the popup with Alt+Shift+E. Change it at chrome://extensions/shortcuts."
+  },
+  "optSaved": {
+    "message": "Saved"
+  },
+  "optReset": {
+    "message": "Restore defaults"
+  },
+  "printBar": {
+    "message": "Choose “Save as PDF” as the destination."
+  },
+  "printButton": {
+    "message": "Print / Save as PDF"
+  },
+  "printNothing": {
+    "message": "Nothing to print. Use Convo Keeper on a chat page and choose PDF."
+  }
+}

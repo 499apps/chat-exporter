@@ -2,7 +2,26 @@ import type { CodeBlock } from './types';
 
 /** Small, dependency-free HTML -> Markdown converter tuned for chat transcripts. */
 
-const SKIP = new Set(['SCRIPT', 'STYLE', 'BUTTON', 'SVG', 'NOSCRIPT', 'TEMPLATE']);
+const SKIP = new Set(['SCRIPT', 'STYLE', 'BUTTON', 'SVG', 'NOSCRIPT', 'TEMPLATE', 'INPUT', 'TEXTAREA']);
+
+/** TeX source of a rendered math element (KaTeX, MathJax, data-math), or null. */
+export function mathTex(el: Element): { tex: string; display: boolean } | null {
+  const isKatex = el.classList.contains('katex') || el.classList.contains('katex-display');
+  const isMjx = el.tagName.toUpperCase() === 'MJX-CONTAINER';
+  const data = el.getAttribute('data-math');
+  if (data) return { tex: data.trim(), display: /block|display/.test(el.className) };
+  if (!isKatex && !isMjx && el.tagName.toUpperCase() !== 'MATH') return null;
+  const ann = el.querySelector('annotation[encoding="application/x-tex"]');
+  const tex = (ann?.textContent ?? el.getAttribute('alttext') ?? '').trim();
+  if (!tex) return null;
+  const display =
+    el.classList.contains('katex-display') ||
+    el.querySelector('.katex-display') !== null ||
+    el.getAttribute('display') === 'true' ||
+    el.getAttribute('display') === 'block' ||
+    el.querySelector('math[display="block"]') !== null;
+  return { tex, display };
+}
 
 export function codeLanguage(pre: Element): string | null {
   const code = pre.querySelector('code') ?? pre;
@@ -14,6 +33,10 @@ export function codeLanguage(pre: Element): string | null {
     const attr = el.getAttribute('data-language');
     if (attr) return attr.toLowerCase();
   }
+  // Header label rendered next to the code (e.g. "python" above the block).
+  const header = pre.querySelector(':scope > div:first-child') ?? pre.previousElementSibling;
+  const label = header && !header.matches('p,pre,code,h1,h2,h3,h4,h5,h6,ul,ol,li,blockquote,table') ? (header.firstChild?.textContent ?? header.textContent ?? '').trim() : '';
+  if (/^[A-Za-z][\w+#.-]{0,19}$/.test(label) && !/^copy/i.test(label)) return label.toLowerCase();
   return null;
 }
 
@@ -34,6 +57,11 @@ function inline(node: Node): string {
   if (node.nodeType !== 1) return '';
   const el = node as Element;
   if (SKIP.has(el.tagName.toUpperCase()) || el.getAttribute('aria-hidden') === 'true') return '';
+  const math = mathTex(el);
+  if (math) return math.display ? `\n\n$$\n${math.tex}\n$$\n\n` : `$${math.tex}$`;
+  if (el.classList.contains('whitespace-pre-wrap') && !el.querySelector('p,pre,ul,ol,div')) {
+    return (el.textContent ?? '').trim().replace(/\r?\n/g, '  \n');
+  }
   const kids = () => Array.from(el.childNodes).map(inline).join('');
   switch (el.tagName.toUpperCase()) {
     case 'BR':
@@ -62,8 +90,8 @@ function inline(node: Node): string {
       return href && /^https?:/i.test(href) ? `[${t || href}](${href})` : t;
     }
     case 'IMG': {
-      const alt = el.getAttribute('alt') ?? 'image';
-      return `[${alt}]`;
+      const alt = (el.getAttribute('alt') ?? '').trim();
+      return alt ? `[Image: ${alt}]` : '[Image]';
     }
     default:
       return kids();
@@ -86,12 +114,16 @@ function block(el: Element, depth = 0): string {
     const c = node as Element;
     const tag = c.tagName.toUpperCase();
     if (SKIP.has(tag) || c.getAttribute('aria-hidden') === 'true') continue;
+    if (mathTex(c)) {
+      buf += inline(c);
+      continue;
+    }
     if (/^H[1-6]$/.test(tag)) {
       flush();
       out.push(`${'#'.repeat(Number(tag[1]))} ${inline(c).trim()}`);
     } else if (tag === 'P') {
       flush();
-      const t = inline(c).trim();
+      const t = inline(c).replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
       if (t) out.push(t);
     } else if (tag === 'PRE') {
       flush();
@@ -110,6 +142,10 @@ function block(el: Element, depth = 0): string {
     } else if (tag === 'TABLE') {
       flush();
       out.push(table(c));
+    } else if (tag === 'DETAILS' || tag === 'FIGURE') {
+      flush();
+      const t = block(c, depth);
+      if (t) out.push(t);
     } else if (['DIV', 'SECTION', 'ARTICLE', 'SPAN', 'MAIN'].includes(tag) && c.querySelector('p,pre,ul,ol,h1,h2,h3,h4,h5,h6,table,blockquote,div')) {
       flush();
       const t = block(c, depth);
@@ -152,7 +188,7 @@ function table(el: Element): string {
 }
 
 export function htmlToMarkdown(root: Element): string {
-  return block(root).replace(/\n{3,}/g, '\n\n').trim();
+  return block(root).replace(/[ \t]+\n/g, (m) => (m.startsWith('  ') ? '  \n' : '\n')).replace(/\n{3,}/g, '\n\n').trim();
 }
 
 /** Plain text preserving newlines, for user prompts rendered as pre-wrapped text. */

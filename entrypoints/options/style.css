@@ -1,0 +1,28 @@
+:root { --bg:#f7f6ff; --fg:#1e1b4b; --muted:#5b5f73; --card:#fff; --border:#e4e2fb; --accent:#5b5bd6; color-scheme: light dark; }
+@media (prefers-color-scheme: dark) { :root { --bg:#12101f; --fg:#ece9ff; --muted:#a9a6c4; --card:#1c1930; --border:#2f2b4d; --accent:#8b8cf6; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 'Segoe UI', system-ui, sans-serif; }
+main { max-width: 620px; margin: 40px auto; padding: 0 20px; }
+header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+h1 { font-size: 22px; margin: 0; }
+fieldset { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 14px 18px 16px; margin: 0 0 14px; }
+legend { font-weight: 600; padding: 0 6px; }
+label { display: flex; gap: 10px; align-items: center; padding: 5px 0; cursor: pointer; }
+input[type=text] { width: 100%; padding: 9px 11px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); color: var(--fg); font: 13px ui-monospace, Consolas, monospace; }
+input { accent-color: var(--accent); }
+.help { color: var(--muted); font-size: 12.5px; margin: 6px 0 0; }
+.preview { font-family: ui-monospace, Consolas, monospace; word-break: break-all; }
+.themes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.theme { flex-direction: column; gap: 6px; border: 2px solid var(--border); border-radius: 12px; padding: 10px; }
+.theme::before { content: ''; display: block; width: 100%; height: 34px; border-radius: 6px; }
+.theme.indigo::before { background: linear-gradient(135deg,#6366f1,#7c3aed); }
+.theme.classic::before { background: repeating-linear-gradient(#fff 0 5px,#ddd 5px 6px); border: 1px solid #ccc; }
+.theme.minimal::before { background: #fff; border: 1px solid #ddd; }
+.theme.dark::before { background: #0f0d1a; border: 1px solid #2e2a4a; }
+.theme:has(input:checked) { border-color: var(--accent); }
+.theme input { position: absolute; opacity: 0; }
+.theme:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.row { display: flex; align-items: center; gap: 14px; }
+button { border: 1px solid var(--border); background: var(--card); color: var(--fg); border-radius: 8px; padding: 8px 14px; font: inherit; cursor: pointer; }
+.saved { color: #059669; font-weight: 600; }

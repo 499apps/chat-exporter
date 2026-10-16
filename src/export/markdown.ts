@@ -1,21 +1,24 @@
 import type { Conversation } from '../types';
+import { DEFAULT_EXPORT, speaker, type ExportOptions } from './options';
 
-const LABEL = { user: 'You', assistant: 'Assistant', system: 'System' } as const;
-
-export function toMarkdown(c: Conversation): string {
-  const head = [
-    `# ${c.source.title}`,
-    '',
-    `- Source: ${c.source.siteName} (${c.source.url})`,
-    `- Exported: ${c.exportedAt}`,
-    `- Messages: ${c.messages.length}`,
-  ].join('\n');
+export function toMarkdown(c: Conversation, opts: ExportOptions = DEFAULT_EXPORT): string {
+  const meta = opts.includeMetadata
+    ? [
+        `- Source: ${c.source.siteName} (${c.source.url})`,
+        ...(c.source.model ? [`- Model: ${c.source.model}`] : []),
+        `- Exported: ${c.exportedAt}`,
+        `- Messages: ${c.messages.length}`,
+      ].join('\n') + '\n\n---\n\n'
+    : '';
   const body = c.messages
     .map((m) => {
-      const who = m.role === 'assistant' ? c.source.siteName : LABEL[m.role];
-      const ts = m.timestamp ? ` _(${m.timestamp})_` : '';
-      return `## ${who}${ts}\n\n${m.content}`;
+      const ts = opts.includeTimestamps && m.timestamp ? ` _(${m.timestamp})_` : '';
+      const thinking =
+        opts.includeThinking && m.thinking
+          ? `<details>\n<summary>Thinking</summary>\n\n${m.thinking}\n\n</details>\n\n`
+          : '';
+      return `## ${speaker(c, m)}${ts}\n\n${thinking}${m.content}`.trimEnd();
     })
     .join('\n\n---\n\n');
-  return `${head}\n\n---\n\n${body}\n`;
+  return `# ${c.source.title}\n\n${meta}${body}\n`;
 }

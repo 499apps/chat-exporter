@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="manifest.open_in_tab" content="true" />
+    <title>Convo Keeper settings</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main>
+      <header><img src="/icon/48.png" alt="" width="40" height="40" /><h1 data-i18n="optTitle">Convo Keeper settings</h1></header>
+      <form id="form">
+        <fieldset>
+          <legend data-i18n="optFilename">File name</legend>
+          <input id="filenameTemplate" name="filenameTemplate" type="text" spellcheck="false" aria-describedby="fn-help fn-preview" />
+          <p id="fn-help" class="help" data-i18n="optFilenameHelp"></p>
+          <p id="fn-preview" class="help preview" aria-live="polite"></p>
+        </fieldset>
+        <fieldset>
+          <legend data-i18n="optContent">Content</legend>
+          <label><input type="checkbox" name="includeMetadata" /> <span data-i18n="optMetadata"></span></label>
+          <label><input type="checkbox" name="includeTimestamps" /> <span data-i18n="optTimestamps"></span></label>
+          <label><input type="checkbox" name="includeThinking" /> <span data-i18n="optThinking"></span></label>
+        </fieldset>
+        <fieldset>
+          <legend data-i18n="optTheme">PDF and HTML theme</legend>
+          <div class="themes" role="radiogroup">
+            <label class="theme indigo"><input type="radio" name="theme" value="indigo" /><span data-i18n="themeIndigo">Indigo</span></label>
+            <label class="theme classic"><input type="radio" name="theme" value="classic" /><span data-i18n="themeClassic">Classic</span></label>
+            <label class="theme minimal"><input type="radio" name="theme" value="minimal" /><span data-i18n="themeMinimal">Minimal</span></label>
+            <label class="theme dark"><input type="radio" name="theme" value="dark" /><span data-i18n="themeDark">Dark</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend data-i18n="optShortcut">Keyboard shortcut</legend>
+          <p class="help" data-i18n="optShortcutHelp"></p>
+        </fieldset>
+        <div class="row">
+          <button type="button" id="reset" data-i18n="optReset">Restore defaults</button>
+          <span id="saved" class="saved" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
