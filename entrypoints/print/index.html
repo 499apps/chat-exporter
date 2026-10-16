@@ -2,15 +2,20 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Convo Keeper – Print</title>
-    <link rel="stylesheet" href="./print.css" />
+    <title>Convo Keeper</title>
+    <style id="theme"></style>
+    <style>
+      .bar { position: sticky; top: 0; z-index: 2; display: flex; gap: 12px; justify-content: space-between; align-items: center; padding: 10px 16px; background: linear-gradient(135deg, #6366f1, #7c3aed); color: #fff; font: 14px system-ui, sans-serif; }
+      .bar button { border: 0; border-radius: 8px; padding: 8px 14px; font: 600 13px system-ui, sans-serif; background: #fff; color: #4338ca; cursor: pointer; }
+      .bar button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    </style>
   </head>
   <body>
-    <div class="toolbar no-print">
-      Choose <strong>Save as PDF</strong> as the destination in the print dialog.
-      <button id="print">Print / Save as PDF</button>
+    <div class="bar no-print" role="region" aria-label="Print">
+      <span data-i18n="printBar">Choose “Save as PDF” as the destination.</span>
+      <button id="print" type="button" data-i18n="printButton">Print / Save as PDF</button>
     </div>
-    <main id="doc"></main>
+    <main id="doc" class="wrap"></main>
     <script type="module" src="./main.ts"></script>
   </body>
 </html>

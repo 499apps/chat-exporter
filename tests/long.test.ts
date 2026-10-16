@@ -93,7 +93,7 @@ describe('virtualized list collection', () => {
   it('mergeTurns de-duplicates by key and keeps order', () => {
     const seen = new Map<string, RawTurn>();
     const order: string[] = [];
-    const t = (k: string): RawTurn => ({ key: k, role: 'user', content: k, timestamp: null, codeBlocks: [] });
+    const t = (k: string): RawTurn => ({ key: k, role: 'user', content: k, timestamp: null, codeBlocks: [], thinking: null, attachments: [] });
     mergeTurns(seen, order, [t('c'), t('d')]);
     mergeTurns(seen, order, [t('a'), t('b'), t('c')]);
     mergeTurns(seen, order, [t('d'), t('e')]);
