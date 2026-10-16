@@ -1,4 +1,4 @@
 {
   "extends": "./.wxt/tsconfig.json",
-  "compilerOptions": { "strict": true, "noUnusedLocals": true, "noUnusedParameters": true }
+  "compilerOptions": { "strict": true, "noUnusedLocals": true, "noUnusedParameters": true, "noUncheckedIndexedAccess": false }
 }
