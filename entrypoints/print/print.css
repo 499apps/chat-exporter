@@ -1,0 +1,11 @@
+body { font: 11pt/1.5 Georgia, 'Times New Roman', serif; color: #111; max-width: 780px; margin: 24px auto; padding: 0 16px; }
+h1 { font: 600 18pt system-ui, sans-serif; margin-bottom: 2px; }
+.meta { color: #555; font-size: 9pt; word-break: break-all; }
+.msg { border-top: 1px solid #ccc; padding-top: 8px; margin-top: 14px; }
+.msg h2 { font: 600 11pt system-ui, sans-serif; margin: 0 0 4px; }
+.msg.user h2 { color: #3b6e8f; }
+.ts { font-weight: 400; color: #777; font-size: 9pt; }
+pre { background: #f4f4f4; border: 1px solid #ddd; padding: 8px; white-space: pre-wrap; word-break: break-word; font: 9pt/1.4 Consolas, monospace; }
+code { font-family: Consolas, monospace; font-size: .92em; }
+.toolbar { background: #eef2f6; padding: 8px 12px; border-radius: 6px; font: 13px system-ui, sans-serif; display: flex; justify-content: space-between; align-items: center; }
+@media print { .no-print { display: none; } body { margin: 0; max-width: none; } .msg { break-inside: auto; } pre { break-inside: avoid; } }

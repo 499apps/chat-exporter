@@ -1,0 +1,11 @@
+body { font: 13px system-ui, sans-serif; width: 260px; margin: 0; padding: 12px; color: #1f2933; }
+header { display: flex; align-items: center; gap: 6px; font-size: 14px; margin-bottom: 8px; }
+.site { margin: 0 0 10px; padding: 6px 8px; border-radius: 6px; background: #eef2f6; }
+.site.ok { background: #e3f5ec; color: #135c3a; }
+.site.bad { background: #fdecec; color: #8a1c1c; }
+.buttons { display: flex; gap: 6px; }
+button { flex: 1; padding: 7px 0; border: 1px solid #3b6e8f; background: #3b6e8f; color: #fff; border-radius: 6px; cursor: pointer; }
+button:disabled { opacity: .45; cursor: default; }
+#status { min-height: 1.2em; margin: 10px 0 6px; }
+#status.error { color: #8a1c1c; }
+footer { font-size: 11px; color: #66788a; }
