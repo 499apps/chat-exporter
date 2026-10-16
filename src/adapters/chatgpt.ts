@@ -1,26 +1,34 @@
 import type { SiteAdapter } from '../types';
-import { compact, hostIs, toMessage } from './common';
+import { compact, hostIs, inDocOrder, outermost, toMessage } from './common';
 
 /**
- * ChatGPT renders each turn with a data-message-author-role attribute.
- * Assistant bodies live in a ".markdown" container; user prompts are pre-wrapped text.
+ * ChatGPT marks each turn with data-message-author-role; turns also sit in
+ * <article data-testid="conversation-turn-N">. Both are used so a turn missing
+ * the role attribute is still captured (role then comes from the sr-only label
+ * or data-turn attribute).
  */
+const ROLE = '[data-message-author-role]';
+const TURN = 'article[data-testid^="conversation-turn"], [data-turn]';
+
 export const chatgpt: SiteAdapter = {
   id: 'chatgpt',
   name: 'ChatGPT',
   matches: (url) => hostIs(url, 'chatgpt.com', 'chat.openai.com'),
   title: (doc) => doc.title.replace(/\s*[-|]\s*ChatGPT\s*$/i, '').trim() || null,
   extract(doc) {
-    const turns = Array.from(doc.querySelectorAll('[data-message-author-role]'));
+    const roleEls = Array.from(doc.querySelectorAll(ROLE));
+    const orphanTurns = Array.from(doc.querySelectorAll(TURN)).filter((t) => !t.querySelector(ROLE) && !t.closest(ROLE));
+    const nodes = inDocOrder(outermost([...roleEls, ...orphanTurns]));
     return compact(
-      turns.map((el) => {
-        const raw = el.getAttribute('data-message-author-role');
+      nodes.map((el) => {
+        const raw = (el.getAttribute('data-message-author-role') ?? el.getAttribute('data-turn') ?? '').toLowerCase();
         const role = raw === 'user' ? 'user' : raw === 'system' ? 'system' : 'assistant';
         if (role === 'user') {
           const body = el.querySelector('.whitespace-pre-wrap') ?? el;
           return toMessage('user', body, { plain: true, tsFrom: el });
         }
-        const body = el.querySelector('.markdown') ?? el;
+        const parts = Array.from(el.querySelectorAll('.markdown'));
+        const body = parts.length === 1 ? parts[0] : el;
         return toMessage(role, body, { tsFrom: el });
       }),
     );

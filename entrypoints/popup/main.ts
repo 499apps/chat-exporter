@@ -56,7 +56,7 @@ async function main() {
     b.addEventListener('click', async () => {
       const format = b.dataset.format as Format;
       buttons.forEach((x) => (x.disabled = true));
-      setStatus('Reading conversation…');
+      setStatus('Reading conversation (scrolling to load all messages)…');
       try {
         const convo = await extract(tabId);
         const n = convo.messages.length;
