@@ -28,13 +28,16 @@ export interface Conversation {
   messages: Message[];
 }
 
+/** A turn as read from the page. `key` is a stable id used to de-duplicate while scrolling. */
+export type RawTurn = Omit<Message, 'index'> & { key?: string };
+
 export interface SiteAdapter {
   id: string;
   name: string;
   /** True when this adapter handles the given page URL. */
   matches(url: URL): boolean;
   /** Pull messages out of the rendered page. Must not mutate the document. */
-  extract(doc: Document): Omit<Message, 'index'>[];
+  extract(doc: Document): RawTurn[];
   /** Optional: page title for the conversation. */
   title?(doc: Document): string | null;
 }
