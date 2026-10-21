@@ -7,3 +7,8 @@ dist/
 .DS_Store
 Thumbs.db
 coverage/
+.cache/
+# Extension signing keys and packed builds
+*.pem
+*.crx
+*.key

@@ -2,6 +2,7 @@
     "name":  "convo-keeper",
     "description":  "Export your AI chat conversations to Markdown, JSON or PDF, entirely on your device.",
     "private":  true,
+    "license":  "MIT",
     "version":  "0.1.0",
     "type":  "module",
     "scripts":  {

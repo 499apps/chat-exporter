@@ -49,3 +49,11 @@ Docs: [SCHEMA](docs/SCHEMA.md) · [PRIVACY](docs/PRIVACY.md) · [STORE_LISTING](
 
 ## Clean-room note
 Written from scratch. No code, assets or text were taken from other chat exporters.
+
+## Contributing
+
+Issues and pull requests are welcome, including new site readers and fixes when a chat site changes its layout. Please run `npm run check` (typecheck, lint and tests) before opening a PR, keep test fixtures synthetic (no real conversations), and keep the extension offline: no network calls, no telemetry. To report a security or privacy problem, see [SECURITY.md](SECURITY.md).
+
+## License
+
+[MIT](LICENSE), Copyright (c) 2026 499Apps. Third-party notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
